@@ -20,6 +20,14 @@ const HomePage = () => {
           <h2>Category Management</h2>
           <p>Organize your products by creating and managing categories.</p>
         </Link>
+         <Link to="/role" className="home-card">
+          <h2>Role Management</h2>
+          <p>Managing roles.</p>
+        </Link>
+        <Link to="/user" className="home-card">
+          <h2>User Management</h2>
+          <p>Create, edit, and assign roles to users.</p>
+        </Link>
         <Link to="/logs" className="home-card">
           <h2>Error Logs</h2>
           <p>View and filter application error logs for debugging.</p>

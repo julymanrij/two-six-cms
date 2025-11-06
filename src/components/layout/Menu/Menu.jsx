@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Menu.css';
-import LogoImage from '../../../assets/logo.png'; // Correct import for logo
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,13 +16,13 @@ const Menu = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
+          <img src="/src/assets/logo.png" alt="Two Six logo" className="logo-image" />
+          TwoSix CMS
+        </NavLink>
         <div className="menu-icon" onClick={toggleMenu}>
           {isOpen ? '✕' : '☰'}
         </div>
-        <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
-          <img src={LogoImage} alt="Two Six logo" className="logo-image" />
-          <div className="logo-text">CMS</div>
-        </NavLink>
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
             <NavLink to="/" className="nav-links" onClick={closeMenu}>
@@ -35,14 +34,24 @@ const Menu = () => {
               Clothing
             </NavLink>
           </li>
-           <li className="nav-item">
+          <li className="nav-item">
+            <NavLink to="/category" className="nav-links" onClick={closeMenu}>
+              Category
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink to="/type-clothing" className="nav-links" onClick={closeMenu}>
               Type Clothing
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/category" className="nav-links" onClick={closeMenu}>
-              Category
+            <NavLink to="/role" className="nav-links" onClick={closeMenu}>
+              Role
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/user" className="nav-links" onClick={closeMenu}>
+              User
             </NavLink>
           </li>
           <li className="nav-item">

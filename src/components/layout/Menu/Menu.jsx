@@ -48,18 +48,18 @@ const Menu = () => {
       <div className="navbar-container">
         <div className="menu-icon" onClick={toggleMenu}>
           {isOpen ? '✕' : '☰'}
-        </div>
+        </div>        
+        <NavLink to="/" className="logo-text-link" onClick={closeMenu}>
+          <h1 className="logo-text">Two Six CMS</h1>
+        </NavLink>
+        <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
+          <img src="/src/assets/logo.png" alt="Logo" className="logo-image" />
+        </NavLink>
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           {menuData.map((item, index) => (
             <SubMenu item={item} key={index} closeMenu={closeMenu} />
           ))}
         </ul>
-        <NavLink to="/" className="logo-text" onClick={closeMenu}>
-          <span className="logo-text"><h1>Two Six CMS</h1></span>
-        </NavLink>
-          <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
-            <img src="/src/assets/logo.png" alt="Logo" className="logo-image" />
-          </NavLink>
       </div>
     </nav>
   );

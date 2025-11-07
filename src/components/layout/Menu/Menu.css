@@ -34,15 +34,20 @@
   height: 100%; /* Ocupa la altura para alinear la imagen verticalmente */
 }
 
-.logo-text {
+.logo-text-link {
+  text-decoration: none;
+}
+
+.logo-text { /* Estilo del texto del título */
   position: absolute; /* Posiciona el texto absolutamente */
   left: 50%; /* Centra horizontalmente */
   top: 50%; /* Centra verticalmente */
   transform: translate(-50%, -50%); /* Ajusta para el ancho y alto propios del elemento */
   z-index: 10; /* Asegura que esté por encima de otros contenidos si es necesario */
   font-weight: bold;
-  padding: 0 60px; /* Añade padding para evitar que el texto se solape con el logo/menú */
   color: var(--primary-color); /* Color dorado */
+  margin: 0; /* Elimina márgenes por defecto del h1 */
+  font-size: 2rem; /* Tamaño de fuente consistente */
 }
 
 .logo-image {

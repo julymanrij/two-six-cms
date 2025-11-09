@@ -26,7 +26,13 @@ const menuData = [
     title: 'Admin Maestros',
     path: '#',
     subNav: [
-      { title: 'Master Design', path: '/master-design' },
+      { title: 'Design', path: '/master-design' },
+    ],
+  },
+  {
+    title: 'Logs App',
+    path: '#',
+    subNav: [
       { title: 'Logs', path: '/logs' },
     ],
   },

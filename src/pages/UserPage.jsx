@@ -1,82 +1,146 @@
-import React, { useState, useEffect } from 'react';
-import UserList from '../components/user/UserList';
-import UserForm from '../components/user/UserForm';
-import * as userApi from '../services/userApi';
-import * as roleApi from '../services/roleApi';
+import React, { useState, useEffect, useCallback } from 'react';
+import { getUsers, createUser, updateUser, deleteUser } from '../services/userApi';
 import { logError } from '../services/errorApi';
+import '../styles/MasterDesign.css'; // Reutilizamos los estilos existentes
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState([]);
-  const [currentItem, setCurrentItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState({
+    id: null,
+    name: '',
+    login: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchItems = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
-      setLoading(true);
-      const [usersData, rolesData] = await Promise.all([
-        userApi.getUsers(),
-        roleApi.getRoles(),
-      ]);
-      setUsers(usersData);
-      setRoles(rolesData);
-      setError('');
+      const data = await getUsers();
+      setUsers(data);
     } catch (err) {
+      setError('Failed to fetch users.');
       logError(err, '/user');
-      setError('Failed to fetch data.');
-    } finally {
-      setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchItems();
   }, []);
 
-  const handleSave = async (itemData) => {
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentUser({ ...currentUser, [name]: value });
+  };
+
+  const resetForm = () => {
+    setIsEditing(false);
+    setCurrentUser({ id: null, name: '', login: '', email: '', phone: '', password: '' });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
     try {
-      if (currentItem) {
-        await userApi.updateUser(itemData.id, itemData);
-      } else {
-        await userApi.createUser(itemData);
+      const userData = { ...currentUser };
+      // No enviar el ID en el cuerpo de la solicitud
+      delete userData.id;
+      // No enviar la contraseña si está vacía durante la actualización
+      if (isEditing && !userData.password) {
+        delete userData.password;
       }
-      fetchItems();
-      setCurrentItem(null);
+
+      if (isEditing) {
+        await updateUser(currentUser.id, userData);
+      } else {
+        await createUser(userData);
+      }
+      resetForm();
+      fetchUsers(); // Recargar la lista
     } catch (err) {
+      setError(`Failed to ${isEditing ? 'update' : 'create'} user: ${err.message}`);
       logError(err, '/user');
-      setError('Failed to save user.');
     }
   };
 
-  const handleEdit = (item) => {
-    setCurrentItem(item);
+  const handleEdit = (user) => {
+    setIsEditing(true);
+    setCurrentUser({ ...user, password: '' }); // Limpiar campo de contraseña al editar
   };
 
   const handleDelete = async (id) => {
-    try {
-      await userApi.deleteUser(id);
-      fetchItems();
-    } catch (err) {
-      logError(err, '/user');
-      setError('Failed to delete user.');
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        await deleteUser(id);
+        fetchUsers(); // Recargar la lista
+      } catch (err) {
+        setError('Failed to delete user.');
+        logError(err, '/user');
+      }
     }
   };
 
-  const handleCancel = () => {
-    setCurrentItem(null);
-  };
-
   return (
-    <div className="page-container">
+    <div className="master-design-container">
       <h1>User Management</h1>
-      {error && <p className="error-message">{error}</p>}
-      <div className="grid-container">
-        <div className="form-card">
-          <UserForm onSave={handleSave} currentItem={currentItem} onCancel={handleCancel} allRoles={roles} />
+      {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
+      <div className="master-design-content">
+        <div className="form-container">
+          <h2>{isEditing ? 'Edit User' : 'Add User'}</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Name</label>
+              <input type="text" name="name" value={currentUser.name} onChange={handleInputChange} required />
+            </div>
+            <div className="form-group">
+              <label>Login</label>
+              <input type="text" name="login" value={currentUser.login} onChange={handleInputChange} required />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" name="email" value={currentUser.email} onChange={handleInputChange} required />
+            </div>
+            <div className="form-group">
+              <label>Phone</label>
+              <input type="text" name="phone" value={currentUser.phone} onChange={handleInputChange} required />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input type="password" name="password" value={currentUser.password} onChange={handleInputChange} placeholder={isEditing ? 'Leave blank to keep current password' : ''} required={!isEditing} />
+            </div>
+            <button type="submit" className="button-primary">{isEditing ? 'Update' : 'Create'}</button>
+            {isEditing && <button type="button" onClick={resetForm} style={{ marginLeft: '10px' }}>Cancel</button>}
+          </form>
         </div>
-        <div className="list-card">
-          {loading ? <p>Loading...</p> : <UserList items={users} onEdit={handleEdit} onDelete={handleDelete} />}
+        <div className="table-container">
+          <h2>User List</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.login}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone}</td>
+                  <td>
+                    <button onClick={() => handleEdit(user)} className="button-edit">Edit</button>
+                    <button onClick={() => handleDelete(user.id)} className="button-delete">Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

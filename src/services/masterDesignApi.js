@@ -2,20 +2,11 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const handleResponse = async (response) => {
   if (!response.ok) {
-    console.error('Request failed with status:', response.status, response.statusText);
-
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      const errorData = await response.json();
-      console.error('Error data (JSON):', errorData);
-      throw new Error(errorData.message || 'Something went wrong');
-    } else {
-      const errorText = await response.text();
-      console.error('Error data (text):', errorText);
-      throw new Error(errorText || 'Internal Server Error');
-    }
+    const errorData = await response.json().catch(() => ({ message: `Request failed with status ${response.status}` }));
+    throw new Error(errorData.message || `Something went wrong`);
   }
-  return response.json();
+  // Para respuestas sin cuerpo (ej. DELETE 204)
+  return response.status === 204 ? null : response.json();
 };
 
 export const getMasterDesigns = async () => {

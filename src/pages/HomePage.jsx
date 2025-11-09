@@ -28,13 +28,13 @@ const HomePage = () => {
           <h2>User Management</h2>
           <p>Create, edit, and assign roles to users.</p>
         </Link>
-        <Link to="/logs" className="home-card">
-          <h2>Error Logs</h2>
-          <p>View and filter application error logs for debugging.</p>
-        </Link>
         <Link to="/master-design" className="home-card">
           <h2>Master Design Management</h2>
           <p>Create and manage master designs.</p>
+        </Link>
+        <Link to="/logs" className="home-card">
+          <h2>Error Logs</h2>
+          <p>View and filter application error logs for debugging.</p>
         </Link>
       </div>
     </div>

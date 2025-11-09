@@ -150,3 +150,48 @@
 .submenu {
   padding-left: 1.5rem; /* Indentación para el submenú */
 }
+
+/* Estilos para el contenedor del submenú desplegable */
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0; /* Oculto por defecto */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  transition: max-height 0.3s ease-in-out; /* Animación suave */
+  background-color: rgba(0, 0, 0, 0.05); /* Fondo ligeramente diferente */
+}
+
+.dropdown-menu.active {
+  max-height: 500px; /* Altura máxima para mostrar el menú */
+}
+
+/* Estilos para los enlaces del submenú desplegable */
+.dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espacio entre el icono y el texto */
+  padding: 0.8rem 1.5rem;
+  text-decoration: none; /* Elimina el subrayado */
+  color: var(--on-surface-color);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 4px;
+  margin: 0 0.5rem; /* Margen para que el hover no ocupe todo el ancho */
+}
+
+.dropdown-link:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo suave al pasar el mouse */
+  color: var(--primary-color); /* Resalta el texto con el color primario */
+}
+
+.dropdown-link.active {
+  background-color: var(--primary-color-variant); /* Color de fondo para el enlace activo */
+  color: var(--on-primary-color);
+}
+
+.dropdown-icon {
+  display: flex; /* Permite centrar el SVG */
+  align-items: center;
+  justify-content: center;
+  color: inherit; /* Hereda el color del enlace padre (.dropdown-link) */
+}

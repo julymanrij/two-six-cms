@@ -31,9 +31,9 @@ const RolePage = () => {
   const handleSave = async (itemData) => {
     try {
       if (currentItem) {
-        await roleApi.updateRole(itemData.code_role, { name: itemData.name });
+        await roleApi.updateRole(currentItem.id, itemData);
       } else {
-        await roleApi.createRole({ name: itemData.name });
+        await roleApi.createRole(itemData);
       }
       fetchItems();
       setCurrentItem(null);

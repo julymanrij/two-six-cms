@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 const RoleForm = ({ onSave, currentItem, onCancel }) => {
-  const getInitialState = () => ({ name: '' });
+  const getInitialState = () => ({ name: '', description: '' });
   const [formData, setFormData] = useState(getInitialState());
 
   useEffect(() => {
     if (currentItem) {
-      setFormData({ name: currentItem.name });
+      setFormData({
+        name: currentItem.name || '',
+        description: currentItem.description || '',
+      });
     } else {
       setFormData(getInitialState());
     }
@@ -19,7 +22,7 @@ const RoleForm = ({ onSave, currentItem, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ ...formData, code_role: currentItem?.code_role });
+    onSave(formData);
   };
 
   return (
@@ -29,8 +32,14 @@ const RoleForm = ({ onSave, currentItem, onCancel }) => {
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Name"
+        placeholder="Role Name"
         required
+      />
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        placeholder="Description (optional)"
       />
       <button type="submit">Save</button>
       {currentItem && <button type="button" onClick={onCancel}>Cancel</button>}

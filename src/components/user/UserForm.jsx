@@ -15,7 +15,7 @@ const UserForm = ({ onSave, currentItem, onCancel, allRoles }) => {
         name: currentItem.name,
         email: currentItem.email,
         password: '', // Password is not sent back, so it's cleared for editing
-        roles: currentItem.roles.map(role => role.code_role), // Assuming roles are objects with code_role
+        roles: currentItem.roles.map(role => role.id), // Use the new numeric id
       });
     } else {
       setFormData(getInitialState());
@@ -65,7 +65,7 @@ const UserForm = ({ onSave, currentItem, onCancel, allRoles }) => {
           required
         >
           {allRoles.map(role => (
-            <option key={role.code_role} value={role.code_role}>
+            <option key={role.id} value={role.id}>
               {role.name}
             </option>
           ))}

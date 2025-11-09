@@ -6,11 +6,11 @@ const RoleList = ({ items, onEdit, onDelete }) => {
       <h2>Roles</h2>
       {items.length > 0 ? (<ul>
         {items.map(item => (
-          <li key={item.code_role}>
-            <span>{item.name}</span>
+          <li key={item.id}>
+            <span>{item.name} (ID: {item.id})</span>
             <div>
               <button onClick={() => onEdit(item)}>Edit</button>
-              <button onClick={() => onDelete(item.code_role)}>Delete</button>
+              <button onClick={() => onDelete(item.id)}>Delete</button>
             </div>
           </li>
         ))}

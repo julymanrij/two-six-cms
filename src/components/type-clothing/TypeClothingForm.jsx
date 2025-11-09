@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const TypeClothingForm = ({ onSave, currentItem, onCancel }) => {
-  const getInitialState = () => ({ code: '', name: '' });
+  const getInitialState = () => ({ id: '', name: '' });
   const [formData, setFormData] = useState(getInitialState());
 
   useEffect(() => {
@@ -26,12 +26,12 @@ const TypeClothingForm = ({ onSave, currentItem, onCancel }) => {
     <form onSubmit={handleSubmit}>
       <h3>{currentItem ? 'Edit' : 'Add'} Type Clothing</h3>
       <input
-        name="code"
-        value={formData.code}
+        name="id"
+        value={formData.id}
         onChange={handleChange}
-        placeholder="Code (1 character)"
+        placeholder="ID (2 characters)"
         required
-        maxLength="1"
+        maxLength="2"
         disabled={!!currentItem}
       />
       <input

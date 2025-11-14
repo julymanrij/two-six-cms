@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getUsers, createUser, updateUser, deleteUser } from '../services/userApi';
 import { logError } from '../services/errorApi';
-import '../styles/MasterDesign.css'; // Reutilizamos los estilos existentes
+import { EditIcon, DeleteIcon } from '../components/common/Icons.jsx';
+import ActionButton from '../components/common/ActionButton.jsx';
+import '../styles/MasterDesign.css';
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
@@ -134,8 +136,8 @@ const UserPage = () => {
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
                   <td>
-                    <button onClick={() => handleEdit(user)} className="button-edit">Edit</button>
-                    <button onClick={() => handleDelete(user.id)} className="button-delete">Delete</button>
+                    <button onClick={() => handleEdit(user)} className="action-button button-edit" title="Editar"><EditIcon /></button>
+                    <button onClick={() => handleDelete(user.id)} className="action-button button-delete" title="Eliminar"><DeleteIcon /></button>
                   </td>
                 </tr>
               ))}

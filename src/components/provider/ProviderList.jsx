@@ -1,4 +1,6 @@
 import React from 'react';
+import { EditIcon, DeleteIcon } from '../common/Icons.jsx';
+import ActionButton from '../common/ActionButton.jsx';
 
 const ProviderList = ({ items, onEdit, onDelete }) => {
   return (
@@ -11,12 +13,8 @@ const ProviderList = ({ items, onEdit, onDelete }) => {
             <small>{item.email} | {item.phone}</small>
           </span>
           <div>
-            <button onClick={() => onEdit(item)} className="button-edit">
-              Edit
-            </button>
-            <button onClick={() => onDelete(item.id)} className="button-delete">
-              Delete
-            </button>
+            <button onClick={() => onEdit(item)} className="action-button button-edit" title="Editar"><EditIcon /></button>
+            <button onClick={() => onDelete(item.id)} className="action-button button-delete" title="Eliminar"><DeleteIcon /></button>
           </div>
         </li>
       ))}

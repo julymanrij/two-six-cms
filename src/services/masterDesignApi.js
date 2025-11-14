@@ -20,19 +20,35 @@ export const getMasterDesignById = async (id) => {
 };
 
 export const createMasterDesign = async (designData) => {
+  const dataToSend = {
+    reference: designData.reference,
+    description: designData.description,
+    manufactured_cost: parseFloat(designData.manufactured_cost),
+    quantity: parseInt(designData.quantity, 10),
+    id_clothing: parseInt(designData.id_clothing, 10),
+    id_collection: parseInt(designData.id_collection, 10),
+  };
   const response = await fetch(`${API_BASE_URL}/master-design`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(designData),
+    body: JSON.stringify(dataToSend),
   });
   return handleResponse(response);
 };
 
 export const updateMasterDesign = async (id, designData) => {
+  const dataToSend = {
+    reference: designData.reference,
+    description: designData.description,
+    manufactured_cost: parseFloat(designData.manufactured_cost),
+    quantity: parseInt(designData.quantity, 10),
+    id_clothing: parseInt(designData.id_clothing, 10),
+    id_collection: parseInt(designData.id_collection, 10),
+  };
   const response = await fetch(`${API_BASE_URL}/master-design/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(designData),
+    body: JSON.stringify(dataToSend),
   });
   return handleResponse(response);
 };

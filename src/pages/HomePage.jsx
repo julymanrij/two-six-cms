@@ -12,45 +12,21 @@ const HomePage = () => {
           <h2>Clothing Management</h2>
           <p>Manage your clothing inventory, sizes, colors, and stock.</p>
         </Link>
-        <Link to="/type-clothing" className="home-card">
-          <h2>Type Clothing Management</h2>
-          <p>Organize your type of clothing by creating and managing this types.</p>
-        </Link>
-         <Link to="/category" className="home-card">
-          <h2>Category Management</h2>
-          <p>Organize your products by creating and managing categories.</p>
-        </Link>
-         <Link to="/role" className="home-card">
-          <h2>Role Management</h2>
-          <p>Managing roles.</p>
-        </Link>
-        <Link to="/user" className="home-card">
-          <h2>User Management</h2>
-          <p>Create, edit, and delete users.</p>
-        </Link>
-        <Link to="/user-role" className="home-card">
-          <h2>User Roles Management</h2>
-          <p>Create, edit, and assign roles to users.</p>
-        </Link>
         <Link to="/master-design" className="home-card">
           <h2>Master Design Management</h2>
           <p>Create and manage master designs.</p>
         </Link>
-        <Link to="/season" className="home-card">
-          <h2>Season Management</h2>
-          <p>Manage the different seasons for your collections.</p>
+        <Link to="/design-provider" className="home-card">
+          <h2>Design Provider Management</h2>
+          <p>Assign providers to your master designs.</p>
         </Link>
-        <Link to="/provider" className="home-card">
-          <h2>Provider Management</h2>
-          <p>Create and manage providers.</p>
+        <Link to="/design-clothing" className="home-card">
+          <h2>Design Clothing Management</h2>
+          <p>Manage the specific variations (color/size) of your designs.</p>
         </Link>
-        <Link to="/collection" className="home-card">
-          <h2>Collection Management</h2>
-          <p>Organize your designs into collections by season and year.</p>
-        </Link>
-        <Link to="/year-production" className="home-card">
-          <h2>Year Production Management</h2>
-          <p>Manage your production years.</p>
+        <Link to="/product" className="home-card">
+          <h2>Product Management</h2>
+          <p>Manage final products available for sale.</p>
         </Link>
         <Link to="/logs" className="home-card">
           <h2>Error Logs</h2>

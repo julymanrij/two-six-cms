@@ -1,4 +1,6 @@
 import React from 'react';
+import { DeleteIcon } from '../common/Icons.jsx';
+import ActionButton from '../common/ActionButton.jsx';
 
 const UserRoleList = ({ items, onDelete }) => {
   return (
@@ -7,11 +9,10 @@ const UserRoleList = ({ items, onDelete }) => {
       {items.length > 0 ? (
         <ul>
           {items.map(item => (
-            // The key should be unique for each assignment
             <li key={item.id}>
               <span>User: <strong>{item.user.name}</strong> &rarr; Role: <strong>{item.role.name}</strong></span>
               <div>
-                <button onClick={() => onDelete(item.id)}>Delete</button>
+                <button onClick={() => onDelete(item.id)} className="action-button button-delete" title="Eliminar"><DeleteIcon /></button>
               </div>
             </li>
           ))}

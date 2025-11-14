@@ -1,10 +1,12 @@
 import React from 'react';
+import { EditIcon, DeleteIcon } from '../common/Icons.jsx';
+import ActionButton from '../common/ActionButton.jsx';
 
 const ClothingList = ({ items, onEdit, onDelete }) => {
   return (
     <ul>
       {items.map((item) => (
-        <li key={item.id}>
+        <li key={item.id} className="clothing-list-item">
           <span>
             <strong>{item.name}</strong> ({item.gender})
             <br />
@@ -13,12 +15,8 @@ const ClothingList = ({ items, onEdit, onDelete }) => {
             </small>
           </span>
           <div>
-            <button onClick={() => onEdit(item)} className="button-edit">
-              Edit
-            </button>
-            <button onClick={() => onDelete(item.id)} className="button-delete">
-              Delete
-            </button>
+            <ActionButton onClick={() => onEdit(item)} title="Editar" className="button-edit"><EditIcon /></ActionButton>
+            <ActionButton onClick={() => onDelete(item.id)} title="Eliminar" className="button-delete"><DeleteIcon /></ActionButton>
           </div>
         </li>
       ))}

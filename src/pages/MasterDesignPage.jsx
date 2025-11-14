@@ -6,7 +6,6 @@ import * as masterDesignApi from '../services/masterDesignApi';
 import * as providerApi from '../services/providerApi';
 import * as clothingApi from '../services/clothingApi';
 import * as collectionApi from '../services/collectionApi';
-import * as yearProductionApi from '../services/yearProductionApi';
 import { logError } from '../services/errorApi';
 
 const MasterDesignPage = () => {
@@ -18,22 +17,20 @@ const MasterDesignPage = () => {
   const [providers, setProviders] = useState([]);
   const [clothings, setClothings] = useState([]);
   const [collections, setCollections] = useState([]);
-  const [years, setYears] = useState([]);
+  const [selectedProvidersDetail, setSelectedProvidersDetail] = useState(null); // Nuevo estado para detalles de proveedores
 
   const fetchData = async () => {
     try {
-      const [designsData, providersData, clothingsData, collectionsData, yearsData] = await Promise.all([
+      const [designsData, providersData, clothingsData, collectionsData] = await Promise.all([
         masterDesignApi.getMasterDesigns(),
         providerApi.getProviders(),
         clothingApi.getClothing(),
         collectionApi.getCollections(),
-        yearProductionApi.getYearProductions(),
       ]);
       setDesigns(designsData);
       setProviders(providersData);
       setClothings(clothingsData);
       setCollections(collectionsData);
-      setYears(yearsData);
     } catch (err) {
       logError(err, '/master-design');
       setError('Failed to fetch data.');
@@ -60,7 +57,7 @@ const MasterDesignPage = () => {
   };
 
   const handleEdit = (item) => {
-    setCurrentItem(item);
+    setCurrentItem({ ...item }); // Asegurarse de pasar el objeto completo
   };
 
   const handleDelete = async (id) => {
@@ -73,20 +70,38 @@ const MasterDesignPage = () => {
     }
   };
 
+  const handleViewProviders = (design) => {
+    setSelectedProvidersDetail(design.designProviders);
+  };
+
+  const closeProvidersDetail = () => {
+    setSelectedProvidersDetail(null);
+  };
+
   return (
     <div className="master-design-container">
       <h1>Master Design Management</h1>
       {error && <p className="error-message">{error}</p>}
+      {selectedProvidersDetail && (
+        <div className="providers-detail-modal">
+          <h2>Proveedores del Diseño</h2>
+          <ul>{selectedProvidersDetail.map(dp => <li key={dp.provider.id}>{dp.provider.company_name} ({dp.provider.id})</li>)}</ul>
+          <button onClick={closeProvidersDetail}>Cerrar</button>
+        </div>
+      )}
       <div className="master-design-content">
         <MasterDesignForm
           onSubmit={handleSave}
           initialData={currentItem || {}}
-          providers={providers}
           clothings={clothings}
           collections={collections}
-          years={years}
         />
-        <MasterDesignList designs={designs} onEdit={handleEdit} onDelete={handleDelete} />
+        <MasterDesignList
+          designs={designs}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onViewProviders={handleViewProviders} // Pasamos la nueva función
+        />
       </div>
     </div>
   );

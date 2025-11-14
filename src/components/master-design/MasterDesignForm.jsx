@@ -13,7 +13,7 @@ const MasterDesignForm = ({
     reference: '',
     manufactured_cost: '',
     quantity: '',
-    id_provider: '',
+    description: '',
     id_clothing: '',
     id_collection: '',
   });
@@ -24,7 +24,7 @@ const MasterDesignForm = ({
         reference: initialData.reference || '',
         manufactured_cost: initialData.manufactured_cost || '',
         quantity: initialData.quantity ? String(initialData.quantity) : '',
-        id_provider: initialData.id_provider || '',
+        description: initialData.description || '',
         id_clothing: initialData.id_clothing || '',
         id_collection: initialData.id_collection || '',
       });
@@ -38,14 +38,7 @@ const MasterDesignForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dataToSubmit = {
-      ...formData,
-      manufactured_cost: parseFloat(formData.manufactured_cost),
-      quantity: BigInt(formData.quantity),
-      id_clothing: parseInt(formData.id_clothing, 10),
-      id_collection: parseInt(formData.id_collection, 10),
-    };
-    onSubmit(dataToSubmit);
+    onSubmit(formData);
   };
 
   return (
@@ -63,13 +56,8 @@ const MasterDesignForm = ({
         <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} required />
       </div>
       <div className="form-group">
-        <label htmlFor="id_provider">Proveedor</label>
-        <select id="id_provider" name="id_provider" value={formData.id_provider} onChange={handleChange} required>
-          <option value="">Seleccione un proveedor</option>
-          {providers.map((provider) => (
-            <option key={provider.id} value={provider.id}>{provider.company_name}</option>
-          ))}
-        </select>
+        <label htmlFor="description">Descripción</label>
+        <textarea id="description" name="description" value={formData.description} onChange={handleChange} />
       </div>
       <div className="form-group">
         <label htmlFor="id_clothing">Prenda</label>

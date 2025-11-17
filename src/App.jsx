@@ -6,8 +6,21 @@ import CategoryPage from './pages/CategoryPage.jsx';
 import './styles/App.css';
 import HomePage from './pages/HomePage.jsx';
 import Footer from './components/layout/Footer/Footer.jsx';
+import RolePage from './pages/RolePage.jsx';
+import UserPage from './pages/UserPage.jsx';
+import UserRolePage from './pages/UserRolePage.jsx';
 import TypeClothingPage from './pages/TypeClothingPage.jsx';
+import MasterDesignPage from './pages/MasterDesignPage.jsx';
+import SeasonPage from './pages/SeasonPage.jsx';
+import YearProductionPage from './pages/YearProductionPage.jsx';
+import CollectionPage from './pages/CollectionPage.jsx';
+import ProviderPage from './pages/ProviderPage.jsx';
+import './styles/App.css';
+import ProductionTypePage from './pages/ProductionTypePage.jsx';
 import ErrorLogPage from './pages/ErrorLogPage.jsx';
+import DesignProviderPage from './pages/DesignProviderPage.jsx';
+import DesignClothingPage from './pages/DesignClothingPage.jsx';
+import ProductPage from './pages/ProductPage.jsx';
 import ErrorBoundary from './components/layout/ErrorBoundary.jsx';
 
 function App() {
@@ -23,7 +36,19 @@ function App() {
                 <Route path="/clothing" element={<ClothingPage />} />
                 <Route path="/type-clothing" element={<TypeClothingPage />} />
                 <Route path="/category" element={<CategoryPage />} />
+                <Route path="/season" element={<SeasonPage />} />
+                <Route path="/year-production" element={<YearProductionPage />} />
+                <Route path="/provider" element={<ProviderPage />} />
+                <Route path="/collection" element={<CollectionPage />} />
+                <Route path="/master-design" element={<MasterDesignPage />} />
+                <Route path="/role" element={<RolePage />} />
+                <Route path="/user" element={<UserPage />} />
+                <Route path="/user-role" element={<UserRolePage />} />
                 <Route path="/logs" element={<ErrorLogPage />} />
+                <Route path="/production-type" element={<ProductionTypePage />} />
+                <Route path="/design-provider" element={<DesignProviderPage />} />
+                <Route path="/design-clothing" element={<DesignClothingPage />} />
+                <Route path="/product" element={<ProductPage />} />
               </Routes>
             </main>
           </div>

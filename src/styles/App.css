@@ -2,6 +2,12 @@
   flex: 1; /* Allows the main content to grow and push the footer down */
 }
 
+/* Override default container styles to utilize full screen width */
+.container {
+  max-width: 100%; /* Ensure it takes full available width */
+  padding: 0 1rem;   /* Keep a small padding on sides for readability, adjust to 0 if needed */
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -98,6 +104,50 @@ button[type="button"]:hover {
   background-color: #777; /* Slightly darker grey on hover */
 }
 
+/* Action Buttons (round, icon-only) */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; /* Tamaño del botón */
+  height: 36px; /* Tamaño del botón */
+  border-radius: 50%; /* Hace el botón redondo */
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+  padding: 0; /* Elimina el padding para que el icono se ajuste bien */
+  color: #fff; /* Color de icono por defecto */
+}
+
+.action-button svg {
+  width: 18px; /* Tamaño del icono */
+  height: 18px;
+  stroke: currentColor; /* Asegura que el icono herede el color del texto del botón */
+}
+
+.action-button.button-edit {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.action-button.button-edit:hover {
+  background-color: #e0a800; /* Amarillo más oscuro */
+}
+
+.action-button.button-delete {
+  background-color: #dc3545; /* Rojo */
+}
+
+.action-button.button-delete:hover {
+  background-color: #c82333; /* Rojo más oscuro */
+}
+
+button.button-info {
+  background-color: #17a2b8;
+  border: 1px solid #138496;
+  color: #fff; /* Asegura que el icono sea blanco */
+}
+
 /* List Styles */
 .list-card ul {
   list-style: none;
@@ -121,7 +171,7 @@ button[type="button"]:hover {
   gap: 0.5rem;
 }
 
-.list-card li button {
+.list-card li button:not(.action-button) {
   padding: 0.4rem 0.8rem;
   font-size: 0.8rem;
 }
@@ -133,4 +183,32 @@ button[type="button"]:hover {
   border-radius: var(--border-radius);
   text-align: center;
   font-weight: 500;
+}
+
+/* Estilos para el modal de detalles de proveedores */
+.providers-detail-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--surface-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  z-index: 1000;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+}
+
+.providers-detail-modal h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--on-surface-color);
+}
+
+.providers-detail-modal ul {
+  list-style: disc;
+  padding-left: 1.5rem;
 }

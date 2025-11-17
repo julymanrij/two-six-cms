@@ -3,7 +3,7 @@
   background: var(--surface-color);
   height: 80px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
   position: sticky;
@@ -13,37 +13,55 @@
 }
 
 .navbar-container {
-  display: flex;
-  justify-content: center; /* Centra el logo */
+ display: flex;
+  justify-content: center; /* Centra el contenido por defecto */
   align-items: center;
   height: 80px;
   width: 100%;
-  max-width: 1500px;
   padding: 0 24px;
+  position: relative; /* Necesario para el posicionamiento absoluto del título */
+  background: linear-gradient(to right, #d4af37, #f7e2a3, #d4af37);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra sutil para darle elevación */
+  border-bottom: 1px solid #b8860b;
+  /* Un borde inferior en un tono dorado más oscuro */
 }
 
-.logo-text {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-}
 
-.navbar-logo {
+.navbar-logo { /* Contenedor del logo a la derecha */
   color: var(--primary-color);
-  justify-self: start;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2rem;
   display: flex;
   align-items: center;
+  position: absolute; /* Position the logo explicitly */
+  right: 20px; /* Align to the right edge of the container */
+  height: 100%; /* Ocupa la altura para alinear la imagen verticalmente */
+}
+
+.logo-text-link {
+  text-decoration: none;
+}
+
+.logo-text { /* Estilo del texto del título */
+  position: absolute; /* Posiciona el texto absolutamente */
+  left: 50%; /* Centra horizontalmente */
+  top: 50%; /* Centra verticalmente */
+  transform: translate(-50%, -50%); /* Ajusta para el ancho y alto propios del elemento */
+  z-index: 10; /* Asegura que esté por encima de otros contenidos si es necesario */
+  font-weight: bold;
+  color: var(--primary-color); /* Color dorado */
+  margin: 0; /* Elimina márgenes por defecto del h1 */
+  font-size: 2rem; /* Tamaño de fuente consistente */
 }
 
 .logo-image {
-  height: 40%;
-  max-height: 100px;
-  width: 40%;
-  max-width: 250px;
-  margin-right: 10px;
+  height: 100%; /* Ajusta el tamaño del logo */
+  width: auto;
+  object-fit: contain;
+}
+
+.menu-icon {
 }
 
 .nav-menu {
@@ -91,7 +109,7 @@
 }
 
 .nav-menu.active {
-  background: var(--surface-color); /* Use theme surface color for consistency */
+  background: linear-gradient(to bottom, #d4af37, #f7e2a3); /* Fondo dorado premium */
   left: 0;
   opacity: 1;
   transition: all 0.3s ease-in-out;
@@ -107,4 +125,78 @@
 .nav-links {
   padding: 1rem 1.5rem; /* More padding for sidebar items */
   justify-content: flex-start; /* Align text to left */
+}
+
+/* Estilos para el menú y submenú */
+.menu {
+  background-color: transparent; /* El fondo lo da nav-menu */
+  padding: 0;
+  border-radius: 5px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin-bottom: 5px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: var(--on-surface-color); /* Usa el color del tema */
+  display: block;
+  padding: 0.8rem 1.5rem; /* Alinea el padding con nav-links */
+  border-radius: 3px;
+}
+
+.submenu {
+  padding-left: 1.5rem; /* Indentación para el submenú */
+}
+
+/* Estilos para el contenedor del submenú desplegable */
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0; /* Oculto por defecto */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  transition: max-height 0.3s ease-in-out; /* Animación suave */
+  background-color: rgba(0, 0, 0, 0.05); /* Fondo ligeramente diferente */
+}
+
+.dropdown-menu.active {
+  max-height: 500px; /* Altura máxima para mostrar el menú */
+}
+
+/* Estilos para los enlaces del submenú desplegable */
+.dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espacio entre el icono y el texto */
+  padding: 0.8rem 1.5rem;
+  text-decoration: none; /* Elimina el subrayado */
+  color: var(--on-surface-color);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 4px;
+  margin: 0 0.5rem; /* Margen para que el hover no ocupe todo el ancho */
+}
+
+.dropdown-link:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo suave al pasar el mouse */
+  color: var(--primary-color); /* Resalta el texto con el color primario */
+}
+
+.dropdown-link.active {
+  background-color: var(--primary-color-variant); /* Color de fondo para el enlace activo */
+  color: var(--on-primary-color);
+}
+
+.dropdown-icon {
+  display: flex; /* Permite centrar el SVG */
+  align-items: center;
+  justify-content: center;
+  color: inherit; /* Hereda el color del enlace padre (.dropdown-link) */
 }

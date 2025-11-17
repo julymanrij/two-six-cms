@@ -31,7 +31,7 @@ const TypeClothingPage = () => {
   const handleSave = async (itemData) => {
     try {
       if (currentItem) {
-        await typeClothingApi.updateTypeClothing(itemData.code, itemData);
+        await typeClothingApi.updateTypeClothing(itemData.id, itemData);
       } else {
         await typeClothingApi.createTypeClothing(itemData);
       }

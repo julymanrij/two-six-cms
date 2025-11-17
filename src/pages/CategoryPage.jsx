@@ -26,7 +26,7 @@ const CategoryPage = () => {
   const handleSave = async (itemData) => {
     try {
       if (currentItem) {
-        await categoryApi.updateCategory(itemData.code_cat, itemData);
+        await categoryApi.updateCategory(currentItem.id, itemData);
       } else {
         await categoryApi.createCategory(itemData);
       }

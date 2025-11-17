@@ -1,21 +1,26 @@
 import React from 'react';
+import { EditIcon, DeleteIcon } from '../common/Icons.jsx';
+import ActionButton from '../common/ActionButton.jsx';
 
-const ClothingList = ({ clothingItems, onEdit, onDelete }) => {
+const ClothingList = ({ items, onEdit, onDelete }) => {
   return (
-    <div>
-      <h2>Clothing Inventory</h2>
-      {clothingItems.length > 0 ? (<ul>
-        {clothingItems.map(item => (
-          <li key={item.id}>
-            <span>{item.name} - Stock: {item.stock}</span>
-            <div>
-              <button onClick={() => onEdit(item)}>Edit</button>
-              <button onClick={() => onDelete(item.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>) : (<p>No clothing items found.</p>)}
-    </div>
+    <ul>
+      {items.map((item) => (
+        <li key={item.id} className="clothing-list-item">
+          <span>
+            <strong>{item.name}</strong> ({item.gender})
+            <br />
+            <small>
+              Type: {item.typeClothing?.name || 'N/A'} | Category: {item.category?.name || 'N/A'}
+            </small>
+          </span>
+          <div>
+            <ActionButton onClick={() => onEdit(item)} title="Editar" className="button-edit"><EditIcon /></ActionButton>
+            <ActionButton onClick={() => onDelete(item.id)} title="Eliminar" className="button-delete"><DeleteIcon /></ActionButton>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

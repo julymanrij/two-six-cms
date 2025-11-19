@@ -1,7 +1,7 @@
 import { handleResponse } from './apiUtils.js';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_ENDPOINT = `${API_BASE_URL}/api/master-design`;
+const API_ENDPOINT = `${API_BASE_URL}/master-design`;
 const API_NAME = 'master-design';
 
 export const getMasterDesigns = async () => {
